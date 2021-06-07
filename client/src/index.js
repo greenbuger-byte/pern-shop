@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+import App from './App';
+import UserStore from './store/UserStore';
+import DeviceStore from './store/DeviceStore';
+import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+import {BrowserRouter} from "react-router-dom";
+export const Context = createContext(null);
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <Context.Provider  value={
+          {
+            user: new UserStore(),
+            device: new DeviceStore()
+          }
+      }>
+          <BrowserRouter>
+        <App/>
+          </BrowserRouter>
+      </Context.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

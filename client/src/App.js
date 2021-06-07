@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, {useContext, useEffect, useState} from "react";
 import './App.css';
+import AppRouter from "./components/AppRouter";
+import NavBar from "./components/NavBar";
+import {observe} from "mobx";
+import {check} from "./http/userApi";
+import {Context} from "./index";
+import {Container} from "react-bootstrap";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App =() => {
+  const [isLoading, setIsLoading] = useState(true);
+  const {user} = useContext(Context);
+  useEffect(()=>{
+    check().then(data=>{
+      user.setIsAuth(true);
+      user.setUser(data);
+    }).finally(()=> setIsLoading(false)
+    );
+  }, [])
+  if(isLoading) return <p>LOADING</p>;
+  return ( <React.Fragment>
+      <NavBar/>
+      <Container style={{minHeight: '70vh', margin: 'auto', width: '1200px', marginTop: '30px'}}>
+        <AppRouter/>
+      </Container>
+      </React.Fragment>
+        )
 }
-
 export default App;

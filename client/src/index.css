@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+*{
+  outline: none;
+}
+*:active{
+  outline: none;
+}
+*:focus {
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.card {
+  border-color: rgb(234 92 45);
+}
+h1, h2{
+  color: rgb(234 92 45);
+}
+footer{
+  background-color: rgb(234 92 45);
+  color: #fff;
+}
